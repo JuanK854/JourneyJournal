@@ -22,8 +22,8 @@ function LoginForm({ onSuccess }) {
                 setError(data.error || 'Error al iniciar sesión')
                 return
             }
-            sessionStorage.setItem('token', data.token)
-            sessionStorage.setItem('user', JSON.stringify(data.user))
+            localStorage.setItem('token', data.token)
+            localStorage.setItem('user', JSON.stringify(data.user))
             onSuccess()
         } catch {
             setError('No se pudo conectar con el servidor')
