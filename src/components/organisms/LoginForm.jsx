@@ -1,8 +1,12 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import Input from '../atoms/Input'
 import Button from '../atoms/Button'
+import useAuth from '../../hooks/useAuth'
 
-function LoginForm({ onSuccess }) {
+function LoginForm() {
+    const { login } = useAuth()
+    const navigate = useNavigate()
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [error, setError] = useState('')
@@ -12,21 +16,10 @@ function LoginForm({ onSuccess }) {
         setError('')
         setLoading(true)
         try {
-            const res = await fetch('http://localhost:3010/auth/login', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email, password })
-            })
-            const data = await res.json()
-            if (!res.ok) {
-                setError(data.error || 'Error al iniciar sesión')
-                return
-            }
-            localStorage.setItem('token', data.token)
-            localStorage.setItem('user', JSON.stringify(data.user))
-            onSuccess()
+            await login(email, password)
+            navigate('/home')
         } catch {
-            setError('No se pudo conectar con el servidor')
+            setError('Correo o contraseña incorrectos')
         } finally {
             setLoading(false)
         }
@@ -35,16 +28,17 @@ function LoginForm({ onSuccess }) {
     return (
         <div className="bg-amber-50 rounded-md shadow p-6 w-full max-w-md flex flex-col gap-4">
             <h2 className="text-lg font-semibold text-center">Iniciar sesión</h2>
-            <Input type="text" placeholder="Correo electronico @ . . ." value={email} onChange={e => setEmail(e.target.value)} />
-            <Input type="password" placeholder="Contraseña  . . ." value={password} onChange={e => setPassword(e.target.value)} />
+            <Input type="text" placeholder="Correo electrónico @ . . ." value={email} onChange={e => setEmail(e.target.value)} />
+            <Input type="password" placeholder="Contraseña . . ." value={password} onChange={e => setPassword(e.target.value)} />
             {error && <p className="text-xs text-red-500 text-center">{error}</p>}
             <Button onClick={handleSubmit} className="w-full" disabled={loading}>
                 {loading ? 'Cargando...' : 'Iniciar sesión'}
             </Button>
             <p className="text-xs text-center text-gray-500">
-                Crea una cuenta nueva <a href="/register" className="text-[#ff7226] font-bold">Registrate</a>
+                Crea una cuenta nueva <a href="/register" className="text-[#ff7226] font-bold">Regístrate</a>
             </p>
         </div>
     )
 }
+
 export default LoginForm
