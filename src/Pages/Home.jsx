@@ -1,20 +1,16 @@
-import { useNavigate } from 'react-router-dom'
 import MainLayout from '../components/templates/MainLayout'
 import PostCard from '../components/organisms/PostCard'
-import Input from '../components/atoms/Input'
+import PostBox from '../components/organisms/PostBox'
 import Spiner from '../components/atoms/Spiner'
 import usePosts from '../hooks/usePosts'
 
 function Home() {
     const { posts, loading, error } = usePosts()
-    const navigate = useNavigate()
 
     return (
         <MainLayout>
             <section className="w-full max-w-xl">
-                <div className="bg-amber-50 rounded-md shadow p-2 flex items-center gap-3">
-                    <Input placeholder="¿Dónde te encuentras el día de hoy?" className="outline-none cursor-pointer" onClick={() => navigate('/crear-post')} />
-                </div>
+                <PostBox />
             </section>
 
             {loading && (
