@@ -1,16 +1,30 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Input from '../atoms/Input'
 import Button from '../atoms/Button'
 import api from '../../services/api'
 
 function PostForm({ onClose }) {
-    const [title, setTitle] = useState('')
-    const [description, setDescription] = useState('')
-    const [city, setCity] = useState('')
-    const [country, setCountry] = useState('')
+    const [title, setTitle] = useState(() => sessionStorage.getItem('draft_title') || '')
+    const [description, setDescription] = useState(() => sessionStorage.getItem('draft_description') || '')
+    const [city, setCity] = useState(() => sessionStorage.getItem('draft_city') || '')
+    const [country, setCountry] = useState(() => sessionStorage.getItem('draft_country') || '')
     const [images, setImages] = useState([])
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
+
+    useEffect(() => {
+        sessionStorage.setItem('draft_title', title)
+        sessionStorage.setItem('draft_description', description)
+        sessionStorage.setItem('draft_city', city)
+        sessionStorage.setItem('draft_country', country)
+    }, [title, description, city, country])
+
+    const clearDraft = () => {
+        sessionStorage.removeItem('draft_title')
+        sessionStorage.removeItem('draft_description')
+        sessionStorage.removeItem('draft_city')
+        sessionStorage.removeItem('draft_country')
+    }
 
     const handleSubmit = async () => {
         setError('')
@@ -27,12 +41,18 @@ function PostForm({ onClose }) {
                 headers: { 'Content-Type': 'multipart/form-data' }
             })
 
+            clearDraft()
             onClose()
         } catch {
             setError('Error al crear el post, intenta de nuevo')
         } finally {
             setLoading(false)
         }
+    }
+
+    const handleClose = () => {
+        clearDraft()
+        onClose()
     }
 
     return (
@@ -59,7 +79,7 @@ function PostForm({ onClose }) {
             <Button onClick={handleSubmit} className="w-full rounded-lg" disabled={loading}>
                 {loading ? 'Publicando...' : 'Publicar'}
             </Button>
-            <Button variant="outline" onClick={onClose} className="w-full">
+            <Button variant="outline" onClick={handleClose} className="w-full">
                 Cancelar
             </Button>
         </div>
