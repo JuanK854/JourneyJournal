@@ -1,16 +1,19 @@
+import { useState } from 'react'
 import MainLayout from '../components/templates/MainLayout'
 import PostCard from '../components/organisms/PostCard'
 import PostBox from '../components/organisms/PostBox'
+import PostForm from '../components/organisms/PostForm'
 import Spiner from '../components/atoms/Spiner'
 import usePosts from '../hooks/usePosts'
 
 function Home() {
     const { posts, loading, error } = usePosts()
+    const [showModal, setShowModal] = useState(false)
 
     return (
         <MainLayout>
             <section className="w-full max-w-xl">
-                <PostBox />
+                <PostBox onOpen={() => setShowModal(true)} />
             </section>
 
             {loading && (
@@ -35,6 +38,14 @@ function Home() {
                     />
                 </section>
             ))}
+
+            {showModal && (
+                <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 px-4">
+                    <div className="w-full max-w-xl">
+                        <PostForm onClose={() => setShowModal(false)} />
+                    </div>
+                </div>
+            )}
         </MainLayout>
     )
 }
