@@ -3,7 +3,7 @@ function Avatar({ src, alt = "Foto de perfil", size = "md", ring = false }) {
 
     return (
         <img
-            src={src || ""}
+            src={src || null}
             alt={alt}
             className={`${sizes[size]} rounded-full object-cover bg-gray-200 ${ring ? "ring-8 ring-white shadow-2xl" : ""}`}
         />
