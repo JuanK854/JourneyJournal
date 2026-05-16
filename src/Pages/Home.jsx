@@ -1,31 +1,44 @@
+import { useNavigate } from 'react-router-dom'
 import MainLayout from '../components/templates/MainLayout'
 import PostCard from '../components/organisms/PostCard'
 import Input from '../components/atoms/Input'
+import Spiner from '../components/atoms/Spiner'
+import usePosts from '../hooks/usePosts'
 
 function Home() {
-    const time = new Date().toLocaleTimeString()
-    const profileImg = "https://avatars.githubusercontent.com/u/105328583?v=4"
-    const ubicacion = "Kyoto, Japón"
-    const viajeImg = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYKkq6xd3ubBs-NI6zrL0U5RwCfAO50MykPg&s"
+    const { posts, loading, error } = usePosts()
+    const navigate = useNavigate()
 
     return (
         <MainLayout>
             <section className="w-full max-w-xl">
                 <div className="bg-amber-50 rounded-md shadow p-2 flex items-center gap-3">
-                    <Input placeholder="¿Dónde te encuentras el día de hoy?" className="outline-none cursor-pointer" />
+                    <Input placeholder="¿Dónde te encuentras el día de hoy?" className="outline-none cursor-pointer" onClick={() => navigate('/crear-post')} />
                 </div>
             </section>
-            <section className="w-full max-w-xl">
-                <PostCard
-                    profileImg={profileImg}
-                    time={time}
-                    ubicacion={ubicacion}
-                    title="Aventura en Kyoto"
-                    body="Primer día explorando el Fushimi Inari Taisha. Miles de templos y santuarios por descubrir."
-                    viajeImg={viajeImg}
-                    showActions
-                />
-            </section>
+
+            {loading && (
+                <div className="flex justify-center py-10">
+                    <Spiner size={32} />
+                </div>
+            )}
+
+            {error && <p className="text-sm text-red-400">{error}</p>}
+
+            {!loading && posts.map(post => (
+                <section key={post.id} className="w-full max-w-xl">
+                    <PostCard
+                        profileImg={post.profile_picture}
+                        userName={post.name}
+                        time={new Date(post.created_at).toLocaleTimeString()}
+                        ubicacion={post.city && post.country ? `${post.city}, ${post.country}` : post.city || post.country || ''}
+                        title={post.title}
+                        body={post.description}
+                        viajeImg={post.media?.[0]?.url}
+                        showActions
+                    />
+                </section>
+            ))}
         </MainLayout>
     )
 }
