@@ -1,10 +1,10 @@
 import Navbar from '../organisms/Navbar'
 import Footer from '../organisms/Footer'
 
-function MainLayout({ profileImg, userName, children }) {
+function MainLayout({ children }) {
     return (
         <>
-            <Navbar profileImg={profileImg} userName={userName} />
+            <Navbar />
             <main className="min-h-screen bg-[#fde8da] flex flex-col items-center py-8 gap-5 px-4">
                 {children}
             </main>
@@ -12,4 +12,5 @@ function MainLayout({ profileImg, userName, children }) {
         </>
     )
 }
+
 export default MainLayout

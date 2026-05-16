@@ -1,30 +1,30 @@
 import MainLayout from '../components/templates/MainLayout'
 import ProfileCard from '../components/organisms/ProfileCard'
 import PostCard from '../components/organisms/PostCard'
+import useAuth from '../hooks/useAuth'
 
 function Profile() {
+    const { user } = useAuth()
     const time = new Date().toLocaleTimeString()
-    const userName = "Juan"
-    const profileImg = "https://avatars.githubusercontent.com/u/105328583?v=4"
     const ubicacion = "Kyoto, Japón"
     const viajeImg = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYKkq6xd3ubBs-NI6zrL0U5RwCfAO50MykPg&s"
 
     return (
-        <MainLayout profileImg={profileImg} userName={userName}>
+        <MainLayout>
             <section className="w-full max-w-xl shadow-md">
                 <ProfileCard
-                    profileImg={profileImg}
-                    userName={userName}
-                    bio="Viajero viajante viajando a viajes vajeros"
-                    viajes={12}
-                    posts={48}
-                    paises={4}
+                    profileImg={user?.profile_picture}
+                    userName={user?.name}
+                    bio={user?.bio}
+                    viajes={0}
+                    posts={0}
+                    paises={0}
                 />
             </section>
             <section className="w-full max-w-xl">
                 <PostCard
-                    profileImg={profileImg}
-                    userName={userName}
+                    profileImg={user?.profile_picture}
+                    userName={user?.name}
                     time={time}
                     ubicacion={ubicacion}
                     title="Aventura en Kyoto"
@@ -35,4 +35,5 @@ function Profile() {
         </MainLayout>
     )
 }
+
 export default Profile
