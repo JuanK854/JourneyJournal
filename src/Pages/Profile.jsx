@@ -33,6 +33,7 @@ function Profile() {
             {!loading && posts.map(post => (
                 <section key={post.id} className="w-full max-w-xl">
                     <PostCard
+                        postId={post.id}
                         profileImg={post.profile_picture}
                         userName={post.name}
                         time={new Date(post.created_at).toLocaleTimeString()}
