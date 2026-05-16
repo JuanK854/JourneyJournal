@@ -1,13 +1,13 @@
 import MainLayout from '../components/templates/MainLayout'
 import ProfileCard from '../components/organisms/ProfileCard'
 import PostCard from '../components/organisms/PostCard'
+import Spiner from '../components/atoms/Spiner'
 import useAuth from '../hooks/useAuth'
+import usePosts from '../hooks/usePosts'
 
 function Profile() {
     const { user } = useAuth()
-    const time = new Date().toLocaleTimeString()
-    const ubicacion = "Kyoto, Japón"
-    const viajeImg = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYKkq6xd3ubBs-NI6zrL0U5RwCfAO50MykPg&s"
+    const { posts, loading, error } = usePosts(user?.id)
 
     return (
         <MainLayout>
@@ -17,21 +17,32 @@ function Profile() {
                     userName={user?.name}
                     bio={user?.bio}
                     viajes={0}
-                    posts={0}
+                    posts={posts.length}
                     paises={0}
                 />
             </section>
-            <section className="w-full max-w-xl">
-                <PostCard
-                    profileImg={user?.profile_picture}
-                    userName={user?.name}
-                    time={time}
-                    ubicacion={ubicacion}
-                    title="Aventura en Kyoto"
-                    body="Primer día explorando el Fushimi Inari Taisha. Miles de templos y santuarios por descubrir."
-                    viajeImg={viajeImg}
-                />
-            </section>
+
+            {loading && (
+                <div className="flex justify-center py-10">
+                    <Spiner size={32} />
+                </div>
+            )}
+
+            {error && <p className="text-sm text-red-400">{error}</p>}
+
+            {!loading && posts.map(post => (
+                <section key={post.id} className="w-full max-w-xl">
+                    <PostCard
+                        profileImg={post.profile_picture}
+                        userName={post.name}
+                        time={new Date(post.created_at).toLocaleTimeString()}
+                        ubicacion={post.city && post.country ? `${post.city}, ${post.country}` : post.city || post.country || ''}
+                        title={post.title}
+                        body={post.description}
+                        viajeImg={post.media?.[0]?.url}
+                    />
+                </section>
+            ))}
         </MainLayout>
     )
 }
