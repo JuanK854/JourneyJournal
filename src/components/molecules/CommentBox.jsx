@@ -25,7 +25,7 @@ function CommentBox({ postId, onComment }) {
     }
 
     return (
-        <div className="flex items-center gap-3 px-4 py-3 border-t">
+        <div className="flex items-center gap-3 px-4 py-3">
             <Avatar src={user?.profile_picture} size="sm" />
             <Input
                 placeholder="Escribe un comentario . . ."

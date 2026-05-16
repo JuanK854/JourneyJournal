@@ -1,9 +1,19 @@
 import Avatar from '../atoms/Avatar'
 import useAuth from '../../hooks/useAuth'
+import api from '../../services/api'
 
-function CommentItem({ comment }) {
+function CommentItem({ comment, onDelete }) {
     const { user } = useAuth()
     const isOwner = user?.id === comment.user_id
+
+    const handleDelete = async () => {
+        try {
+            await api.delete(`/comments/${comment.id}`)
+            onDelete()
+        } catch {
+            console.error('Error al eliminar comentario')
+        }
+    }
 
     return (
         <div className="flex items-start gap-3 py-2">
@@ -18,7 +28,7 @@ function CommentItem({ comment }) {
                         {new Date(comment.created_at).toLocaleTimeString()}
                     </span>
                     {isOwner && (
-                        <button className="text-xs text-red-400 hover:text-red-600 cursor-pointer">
+                        <button onClick={handleDelete} className="text-xs text-red-400 hover:text-red-600 cursor-pointer">
                             Eliminar
                         </button>
                     )}
