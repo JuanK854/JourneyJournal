@@ -17,6 +17,7 @@ function Navbar() {
             <nav className="flex justify-between items-center px-15 py-3">
                 <Logo />
                 <div className="flex items-center gap-4">
+                    <a href="/settings" className="text-sm text-white hover:text-amber-100">Ajustes</a>
                     <NavUser src={user?.profile_picture} userName={user?.name} />
                     <button onClick={handleLogout} className="text-sm text-white hover:text-amber-100 cursor-pointer">
                         Salir
