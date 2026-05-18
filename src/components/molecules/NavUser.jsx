@@ -1,11 +1,15 @@
 import Avatar from '../atoms/Avatar'
+import useAuth from '../../hooks/useAuth'
 
-function NavUser({ src, userName, href = "/profile" }) {
+function NavUser({ src, userName }) {
+    const { user } = useAuth()
+
     return (
-        <a href={href} className="flex items-center gap-2">
+        <a href={`/profile/${user?.id}`} className="flex items-center gap-2">
             <Avatar src={src} size="sm" />
             {userName}
         </a>
     )
 }
+
 export default NavUser

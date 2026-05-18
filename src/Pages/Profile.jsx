@@ -1,21 +1,36 @@
+import { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
 import MainLayout from '../components/templates/MainLayout'
 import ProfileCard from '../components/organisms/ProfileCard'
 import PostCard from '../components/organisms/PostCard'
 import Spiner from '../components/atoms/Spiner'
-import useAuth from '../hooks/useAuth'
 import usePosts from '../hooks/usePosts'
+import api from '../services/api'
 
 function Profile() {
-    const { user } = useAuth()
-    const { posts, loading, error } = usePosts(user?.id)
+    const { id } = useParams()
+    const { posts, loading, error } = usePosts(id)
+    const [profileUser, setProfileUser] = useState(null)
+
+    useEffect(() => {
+        const fetchUser = async () => {
+            try {
+                const { data } = await api.get(`/users/${id}`)
+                setProfileUser(data)
+            } catch {
+                console.error('Error al cargar usuario')
+            }
+        }
+        fetchUser()
+    }, [id])
 
     return (
         <MainLayout>
             <section className="w-full max-w-xl shadow-md">
                 <ProfileCard
-                    profileImg={user?.profile_picture}
-                    userName={user?.name}
-                    bio={user?.bio}
+                    profileImg={profileUser?.profile_picture}
+                    userName={profileUser?.name}
+                    bio={profileUser?.bio}
                     viajes={0}
                     posts={posts.length}
                     paises={0}

@@ -6,20 +6,20 @@ import Register from './Pages/Register'
 import Profile from './Pages/Profile'
 import Settings from './Pages/Settings'
 
-function PrivateRoute({ children }) {
-  const { user, loading } = useAuth()
-  if (loading) return null
-  return user ? children : <Navigate to="/login" />
-}
-
 function App() {
+  function PrivateRoute({ children }) {
+    const { user, loading } = useAuth()
+    if (loading) return null
+    return user ? children : <Navigate to="/login" />
+  }
+
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/home" element={<PrivateRoute><Home /></PrivateRoute>} />
-        <Route path="/profile" element={<PrivateRoute><Profile /></PrivateRoute>} />
+        <Route path="/profile/:id" element={<PrivateRoute><Profile /></PrivateRoute>} />
         <Route path="/settings" element={<PrivateRoute><Settings /></PrivateRoute>} />
         <Route path="*" element={<Navigate to="/login" />} />
       </Routes>
