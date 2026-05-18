@@ -28,6 +28,7 @@ function Home() {
                 <section key={post.id} className="w-full max-w-xl">
                     <PostCard
                         postId={post.id}
+                        userId={post.user_id}
                         profileImg={post.profile_picture}
                         userName={post.name}
                         username={post.username}
