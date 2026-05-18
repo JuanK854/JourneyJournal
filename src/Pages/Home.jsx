@@ -30,6 +30,7 @@ function Home() {
                         postId={post.id}
                         profileImg={post.profile_picture}
                         userName={post.name}
+                        username={post.username}
                         time={new Date(post.created_at).toLocaleTimeString()}
                         ubicacion={post.city && post.country ? `${post.city}, ${post.country}` : post.city || post.country || ''}
                         title={post.title}

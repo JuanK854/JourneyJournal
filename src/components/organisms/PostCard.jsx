@@ -5,7 +5,7 @@ import CommentItem from '../molecules/CommentItem'
 import CommentBox from '../molecules/CommentBox'
 import api from '../../services/api'
 
-function PostCard({ postId, profileImg, userName, time, ubicacion, title, body, viajeImg, showActions = false }) {
+function PostCard({ postId, profileImg, userName, username, time, ubicacion, title, body, viajeImg, showActions = false }) {
     const [showComments, setShowComments] = useState(false)
     const [comments, setComments] = useState([])
     const [loading, setLoading] = useState(false)
@@ -28,7 +28,7 @@ function PostCard({ postId, profileImg, userName, time, ubicacion, title, body, 
 
     return (
         <div className="bg-amber-50 rounded-md shadow overflow-hidden">
-            <PostMeta src={profileImg} userName={userName} time={time} ubicacion={ubicacion} />
+            <PostMeta src={profileImg} userName={userName} username={username} time={time} ubicacion={ubicacion} />
             <div className="px-4 pb-3">
                 <h2 className="font-semibold text-lg mb-1">{title}</h2>
                 <p className="text-sm">{body}</p>
