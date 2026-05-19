@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import Input from '../atoms/Input'
 import Button from '../atoms/Button'
+import MediaPreview from '../molecules/MediaPreview'
 import api from '../../services/api'
 
 function PostForm({ onClose }) {
@@ -75,6 +76,7 @@ function PostForm({ onClose }) {
                 onChange={e => setImages([...e.target.files])}
                 className="text-sm text-gray-500"
             />
+            <MediaPreview images={images} />
             {error && <p className="text-xs text-red-500 text-center">{error}</p>}
             <Button onClick={handleSubmit} className="w-full rounded-lg" disabled={loading}>
                 {loading ? 'Publicando...' : 'Publicar'}
