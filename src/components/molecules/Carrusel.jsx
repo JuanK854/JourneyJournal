@@ -5,17 +5,26 @@ function Carrusel({ images }) {
 
     if (!images || images.length === 0) return null
 
-    if (images.length === 1) {
-        return <img className="w-full object-cover max-h-72" src={images[0].url} alt="Imagen de viaje" />
-    }
+    const Imagen = ({ src }) => (
+        <div className="relative w-full h-72 overflow-hidden">
+            <img
+                src={src}
+                alt="fondo"
+                className="absolute inset-0 w-full h-full object-cover scale-110 blur-lg opacity-60"
+            />
+            <img
+                src={src}
+                alt="Imagen de viaje"
+                className="relative w-full h-full object-contain"
+            />
+        </div>
+    )
+
+    if (images.length === 1) return <Imagen src={images[0].url} />
 
     return (
         <div className="relative">
-            <img
-                className="w-full object-cover max-h-72"
-                src={images[current].url}
-                alt={`Imagen ${current + 1}`}
-            />
+            <Imagen src={images[current].url} />
             <button
                 onClick={() => setCurrent(prev => (prev === 0 ? images.length - 1 : prev - 1))}
                 className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/40 text-white rounded-full w-8 h-8 flex items-center justify-center hover:bg-black/60 cursor-pointer"
