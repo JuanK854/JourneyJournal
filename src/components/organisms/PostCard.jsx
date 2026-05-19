@@ -3,9 +3,10 @@ import PostMeta from '../molecules/PostMeta'
 import PostActions from '../molecules/PostActions'
 import CommentItem from '../molecules/CommentItem'
 import CommentBox from '../molecules/CommentBox'
+import Carrusel from '../molecules/Carrusel'
 import api from '../../services/api'
 
-function PostCard({ postId, userId, profileImg, userName, username, time, ubicacion, title, body, viajeImg, showActions = false }) {
+function PostCard({ postId, userId, profileImg, userName, username, time, ubicacion, title, body, media, showActions = false }) {
     const [showComments, setShowComments] = useState(false)
     const [comments, setComments] = useState([])
     const [loading, setLoading] = useState(false)
@@ -33,7 +34,7 @@ function PostCard({ postId, userId, profileImg, userName, username, time, ubicac
                 <h2 className="font-semibold text-lg mb-1">{title}</h2>
                 <p className="text-sm">{body}</p>
             </div>
-            {viajeImg && <img className="w-full object-cover max-h-72" src={viajeImg} alt="Imagen de viaje" />}
+            <Carrusel images={media} />
             {showActions && (
                 <PostActions onComment={() => setShowComments(!showComments)} />
             )}

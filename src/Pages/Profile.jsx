@@ -49,6 +49,7 @@ function Profile() {
                 <section key={post.id} className="w-full max-w-xl">
                     <PostCard
                         postId={post.id}
+                        userId={post.user_id}
                         profileImg={post.profile_picture}
                         userName={post.name}
                         username={post.username}
@@ -56,7 +57,7 @@ function Profile() {
                         ubicacion={post.city && post.country ? `${post.city}, ${post.country}` : post.city || post.country || ''}
                         title={post.title}
                         body={post.description}
-                        viajeImg={post.media?.[0]?.url}
+                        media={post.media}
                     />
                 </section>
             ))}

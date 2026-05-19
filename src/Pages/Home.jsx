@@ -36,7 +36,7 @@ function Home() {
                         ubicacion={post.city && post.country ? `${post.city}, ${post.country}` : post.city || post.country || ''}
                         title={post.title}
                         body={post.description}
-                        viajeImg={post.media?.[0]?.url}
+                        media={post.media}
                         showActions
                     />
                 </section>
