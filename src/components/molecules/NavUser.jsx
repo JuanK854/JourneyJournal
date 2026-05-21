@@ -7,7 +7,7 @@ function NavUser({ src, userName }) {
     return (
         <a href={`/profile/${user?.id}`} className="flex items-center gap-2">
             <Avatar src={src} size="sm" />
-            {userName}
+            <span className="font-bold text-sm text-white">{userName}</span>
         </a>
     )
 }
