@@ -28,8 +28,8 @@ function LoginForm() {
     return (
         <div className="bg-amber-50 rounded-md shadow p-6 w-full max-w-md flex flex-col gap-4">
             <h2 className="text-lg font-semibold text-center">Iniciar sesión</h2>
-            <Input type="text" placeholder="Correo electrónico @ . . ." value={email} onChange={e => setEmail(e.target.value)} />
-            <Input type="password" placeholder="Contraseña . . ." value={password} onChange={e => setPassword(e.target.value)} />
+            <Input type="text" placeholder="Correo electrónico @ . . ." value={email} onChange={e => setEmail(e.target.value)} onKeyDown={e => e.key === 'Enter' && handleSubmit()} />
+            <Input type="password" placeholder="Contraseña . . ." value={password} onChange={e => setPassword(e.target.value)} onKeyDown={e => e.key === 'Enter' && handleSubmit()} />
             {error && <p className="text-xs text-red-500 text-center">{error}</p>}
             <Button onClick={handleSubmit} className="w-full" disabled={loading}>
                 {loading ? 'Cargando...' : 'Iniciar sesión'}

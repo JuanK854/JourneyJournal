@@ -72,18 +72,18 @@ function SettingsForm() {
 
             <div className="flex flex-col gap-1">
                 <label className="text-xs text-gray-500 px-1">Nombre</label>
-                <Input placeholder="Nombre " value={name} onChange={e => setName(e.target.value)} />
+                <Input placeholder="Nombre . . ." value={name} onChange={e => setName(e.target.value)} onKeyDown={e => e.key === 'Enter' && handleSubmit()} />
             </div>
 
             <div className="flex flex-col gap-1">
                 <label className="text-xs text-gray-500 px-1">Username</label>
-                <Input placeholder="Username " value={username} onChange={e => setUsername(e.target.value)} />
+                <Input placeholder="Username . . ." value={username} onChange={e => setUsername(e.target.value)} onKeyDown={e => e.key === 'Enter' && handleSubmit()} />
             </div>
 
             <div className="flex flex-col gap-1">
                 <label className="text-xs text-gray-500 px-1">Bio</label>
                 <textarea
-                    placeholder="Bio "
+                    placeholder="Bio . . ."
                     value={bio}
                     onChange={e => setBio(e.target.value)}
                     rows={3}
