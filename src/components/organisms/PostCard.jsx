@@ -36,7 +36,7 @@ function PostCard({ postId, userId, profileImg, userName, username, time, ubicac
             </div>
             <Carrusel images={media} />
             {showActions && (
-                <PostActions onComment={() => setShowComments(!showComments)} />
+                <PostActions onComment={() => setShowComments(!showComments)} postId={postId} />
             )}
             {showComments && (
                 <div className="px-4 pb-2">
