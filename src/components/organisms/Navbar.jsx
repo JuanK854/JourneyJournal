@@ -22,8 +22,8 @@ function Navbar() {
                         <Icon name="Cog6ToothIcon" size={22} className="text-white" />
                     </a>
                     <NavUser src={user?.profile_picture} userName={user?.name} />
-                    <button onClick={handleLogout} className="text-sm text-white hover:text-amber-100 cursor-pointer">
-                        Salir
+                    <button onClick={handleLogout} className="text-white hover:text-amber-100 cursor-pointer">
+                        <Icon name="ArrowRightOnRectangleIcon" size={22} className="text-white" />
                     </button>
                 </div>
             </nav>
