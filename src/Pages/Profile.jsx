@@ -23,6 +23,7 @@ function Profile() {
         }
         fetchUser()
     }, [id])
+    const paises = [...new Set(posts.filter(p => p.country).map(p => p.country.toLowerCase().trim()))].length
 
     return (
         <MainLayout>
@@ -31,9 +32,8 @@ function Profile() {
                     profileImg={profileUser?.profile_picture}
                     userName={profileUser?.name}
                     bio={profileUser?.bio}
-                    viajes={0}
                     posts={posts.length}
-                    paises={0}
+                    paises={paises}
                 />
             </section>
 

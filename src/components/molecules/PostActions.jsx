@@ -1,11 +1,11 @@
-import Button from '../atoms/Button'
+import toast from 'react-hot-toast'
 
 function PostActions({ onComment, postId }) {
     const handleShare = () => {
         const url = `${window.location.origin}/posts/${postId}`
         navigator.clipboard.writeText(url)
-            .then(() => alert('Link copiado al portapapeles'))
-            .catch(() => alert('No se pudo copiar el link'))
+            .then(() => toast.success('Link copiado'))
+            .catch(() => toast.error('No se pudo copiar el link'))
     }
 
     return (
