@@ -19,7 +19,7 @@ function RegisterForm() {
         setLoading(true)
         try {
             await register(name, username, email, password)
-            navigate('/home')
+            navigate('/login')
         } catch {
             setError('Error al registrarse, intenta de nuevo')
         } finally {
